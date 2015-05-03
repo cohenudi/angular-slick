@@ -115,13 +115,14 @@ angular.module('slick', [])
               sl.slideHandler(currentIndex)
 
           slider.on 'afterChange', (event, slick, currentSlide, nextSlide) ->
-            scope.onAfterChange() if scope.onAfterChange
-
             if currentIndex?
               scope.$apply(->
                 currentIndex = currentSlide
                 scope.currentIndex = currentSlide
               )
+
+            # call the onAfterChange after changing the scope
+            scope.onAfterChange() if scope.onAfterChange
 
           scope.$watch("currentIndex", (newVal, oldVal) ->
             if currentIndex? and newVal? and newVal != currentIndex
